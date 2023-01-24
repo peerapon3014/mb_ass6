@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.lab6menufragment.databinding.ActivityMainBinding
 import com.example.lab6menufragment.databinding.FragmentFirstBinding
 import com.example.lab6menufragment.databinding.FragmentSecondBinding
 
@@ -18,9 +19,17 @@ class SecondFragment : Fragment() {
         // Inflate the layout for this fragment
         bindingSecondFrag = FragmentSecondBinding.inflate(layoutInflater)
         bindingSecondFrag.btnClickSecondFrag.setOnClickListener(){
-            var toast = Toast.makeText(context,"click on second fragment", Toast.LENGTH_SHORT)
-            toast.show()
+            replaceFragment(FirstFragment())
+
         }
         return bindingSecondFrag.root
+    }
+    fun replaceFragment(someFragment:Fragment){
+        var binding: ActivityMainBinding
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        var transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(binding.frameLayout.id, someFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

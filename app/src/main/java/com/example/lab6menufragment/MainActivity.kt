@@ -16,17 +16,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState==null){
-            replaceFragment(FirstFragment())
-        }
-        binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId){
-                R.id.menu1 -> replaceFragment(FirstFragment())
-                R.id.menu2 -> replaceFragment(SecondFragment())
-                R.id.menu3 -> replaceFragment((ThirdFragment()))
-            }
-            true
-        }
+//        if (savedInstanceState==null){
+//            replaceFragment(FirstFragment())
+//        }
+//        binding.bottomNavigation.setOnItemSelectedListener {
+//            when (it.itemId){
+//                R.id.menu1 -> replaceFragment(FirstFragment())
+//                R.id.menu2 -> replaceFragment(SecondFragment())
+//                R.id.menu3 -> replaceFragment((ThirdFragment()))
+//            }
+//            true
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -36,13 +36,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.op_menu1 -> replaceFragment(FirstFragment())
-            R.id.op_menu2 -> replaceFragment(SecondFragment())
-            R.id.op_menu3 -> replaceFragment(ThirdFragment())
+            R.id.op_menu1 -> replaceFragment(SecondFragment())
+            R.id.op_menu2 -> replaceFragment(ThirdFragment())
         }
         return super.onOptionsItemSelected(item)
     }
-    private fun replaceFragment(someFragment: Fragment){
+    fun replaceFragment(someFragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frameLayout, someFragment)

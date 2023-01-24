@@ -14,20 +14,20 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        bindingFirst = FragmentFirstBinding.inflate(layoutInflater)
-        bindingFirst.btnClickFirstFrag.setOnClickListener() {
-            var fragment: Fragment? = null
-            fragment = SecondFragment()
-            replaceFragment(fragment)
+        return inflater.inflate(R.layout.fragment_first, container, false)
+//        bindingFirst = FragmentFirstBinding.inflate(layoutInflater)
+//        bindingFirst.btnClickFirstFrag.setOnClickListener() {
+//            var fragment: Fragment? = null
+//            fragment = SecondFragment()
+//            replaceFragment(fragment)
         }
-        return bindingFirst.root
     }
-    fun replaceFragment(someFragment:Fragment){
-        var binding: ActivityMainBinding
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        var transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(binding.frameLayout.id, someFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
-}
+//    fun replaceFragment(someFragment:Fragment){
+//        var binding: ActivityMainBinding
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        var transaction = requireActivity().supportFragmentManager.beginTransaction()
+//        transaction.replace(binding.frameLayout.id, someFragment)
+//        transaction.addToBackStack(null)
+//        transaction.commit()
+//    }
+//}

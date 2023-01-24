@@ -3,10 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/op_menu1"
         app:showAsAction="always"
-        android:title="First Fragment"
-        android:icon="@drawable/firstfragment" />
+        android:title="Natpacan"
+        android:icon="@drawable/f1"
+        />
     <item android:id="@+id/op_menu2"
-        android:title="Second Fragment"/>
-    <item android:id="@+id/op_menu3"
-        android:title="Third Fragment"/>
+        app:showAsAction="always"
+        android:icon="@drawable/f2"
+        android:title="Patchara"
+        />
+
 </menu>
