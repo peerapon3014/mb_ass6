@@ -1,0 +1,370 @@
+** ในนี้ถ้าไม่ตกหล่นไรไม่มีแค่ไฟล์ build.gradle (Module: {nameProject}.app) อันเดียว **
+** แก้ build.gradle (Module: {nameProject}.app) ด้วย **
+** ในนี้มีชื่อไฟล์ทุกอัน Ctrl+F หาเอาได้ **
+
+
+MeFragment.kt
+
+package com.example.ass6menufragment
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+
+class MeFragment : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_me, container, false)
+    }
+
+}
+
+--------------------------------------------------------------------------------------------
+ 
+Friend1Fragment.kt
+
+package com.example.ass6menufragment
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.example.ass6menufragment.databinding.ActivityMainBinding
+import com.example.ass6menufragment.databinding.FragmentFriend1Binding
+import com.example.ass6menufragment.databinding.FragmentFriend2Binding
+
+class Friend1Fragment : Fragment() {
+    private lateinit var bindingFirstFriendFragment: FragmentFriend1Binding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        bindingFirstFriendFragment = FragmentFriend1Binding.inflate(layoutInflater)
+
+        bindingFirstFriendFragment.btnFriend1Button.setOnClickListener() {
+            var fragment: Fragment? = null
+            fragment = MeFragment()
+            replaceFragment(fragment)
+        }
+        return bindingFirstFriendFragment.root
+    }
+    fun replaceFragment(someFragment: Fragment){
+        var binding: ActivityMainBinding
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(binding.frameLayout.id, someFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+}
+
+--------------------------------------------------------------------------------------------
+ 
+Friend2Fragment.kt
+
+package com.example.ass6menufragment
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.example.ass6menufragment.databinding.ActivityMainBinding
+import com.example.ass6menufragment.databinding.FragmentFriend1Binding
+import com.example.ass6menufragment.databinding.FragmentFriend2Binding
+
+class Friend2Fragment : Fragment() {
+    private lateinit var bindingSecondFriendFragment: FragmentFriend2Binding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        bindingSecondFriendFragment = FragmentFriend2Binding.inflate(layoutInflater)
+
+       bindingSecondFriendFragment.btnFriend2Button.setOnClickListener() {
+            var fragment: Fragment? = null
+            fragment = MeFragment()
+            replaceFragment(fragment)
+        }
+
+        return bindingSecondFriendFragment.root
+    }
+    fun replaceFragment(someFragment: Fragment) {
+        var binding: ActivityMainBinding
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(binding.frameLayout.id, someFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+}
+
+-------------------------------------------------------------------------------------------- 
+
+MainActivity.kt
+
+package com.example.ass6menufragment
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.fragment.app.Fragment
+import com.example.ass6menufragment.databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        //Show FirstFragment
+        if(savedInstanceState==null) {
+            replaceFragment(MeFragment())
+        }
+
+    }
+    //// Option Menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.my_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    //// Click on Option Menu
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.friend_menu1 -> replaceFragment(Friend1Fragment())
+            R.id.friend_menu2 -> replaceFragment(Friend2Fragment())
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun replaceFragment(someFragment: Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout, someFragment)
+        fragmentTransaction.commit()
+    }
+}
+
+--------------------------------------------------------------------------------------------
+ 
+fragment_Me.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#141861"
+    android:padding="15dp"
+    tools:context=".MeFragment">
+
+    <TextView
+        android:id="@+id/textmename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="นายเจษฎาภรณ์ ศิริเกตุ"
+        android:textColor="@color/white"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="1.5"
+        android:shadowDy="1.3"
+        android:shadowRadius="1.6"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imgme"
+        android:paddingTop="20dp"
+        android:textSize="25sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="643020359-3"
+        android:textColor="@color/white"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="1.5"
+        android:shadowDy="1.3"
+        android:shadowRadius="1.6"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textmename"
+        android:textSize="25sp"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgme"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/cartoon_cat"
+        />
+
+</RelativeL
+--------------------------------------------------------------------------------------------
+
+fragment_Friend1.xml
+ 
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Friend1Fragment">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bearbg"
+        android:scaleType="centerCrop"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+        <TextView
+            android:id="@+id/textf1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ชื่อ1"
+            android:textColor="@color/white"
+            android:shadowColor="#000000"
+            android:shadowDx="1.5"
+            android:shadowDy="1.3"
+            android:shadowRadius="20"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/imgf1"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textSize="25sp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnFriend1Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textf1"
+            android:text="Go Back To My Fragment"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:layout_centerHorizontal="true"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgf1"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/cartoon_cat" />
+    </RelativeLayout>
+
+</RelativeLayout>
+
+--------------------------------------------------------------------------------------------
+
+fragment_Friend2.xml
+ 
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Friend2Fragment">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bearbg"
+        android:scaleType="centerCrop"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+        <TextView
+            android:id="@+id/textf2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ชื่อ2"
+            android:textColor="@color/white"
+            android:shadowColor="#000000"
+            android:shadowDx="1.5"
+            android:shadowDy="1.3"
+            android:shadowRadius="20"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/imgf2"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textSize="25sp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnFriend2Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textf2"
+            android:text="Go Back To My Fragment"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:layout_centerHorizontal="true"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgf2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/cartoon_cat"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
+
+--------------------------------------------------------------------------------------------
+ 
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    
+</RelativeLayout>
+
+--------------------------------------------------------------------------------------------
+
+ 
+my_menu.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/friend_menu1"
+        app:showAsAction="always"
+        android:title="First Friend"
+        android:icon="@drawable/fbutton"/>
+    <item android:id="@+id/friend_menu2"
+        app:showAsAction="always"
+        android:title="Second Friend"
+        android:icon="@drawable/dbutton"/>
+</menu>
+
+--------------------------------------------------------------------------------------------
