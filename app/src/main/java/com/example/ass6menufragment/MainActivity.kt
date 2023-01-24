@@ -1,12 +1,12 @@
-package com.example.lab6menufragment
+package com.example.ass6menufragment
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.lab6menufragment.R
 import com.example.lab6menufragment.databinding.ActivityMainBinding
-import com.example.lab6menufragment.databinding.FragmentThirdBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        if (savedInstanceState==null){
-//            replaceFragment(FirstFragment())
-//        }
+        if (savedInstanceState==null){
+            replaceFragment(FirstFragment())
+        }
 //        binding.bottomNavigation.setOnItemSelectedListener {
 //            when (it.itemId){
 //                R.id.menu1 -> replaceFragment(FirstFragment())

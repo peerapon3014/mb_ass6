@@ -1,4 +1,4 @@
-package com.example.lab6menufragment
+package com.example.ass6menufragment
 
 import org.junit.Test
 
